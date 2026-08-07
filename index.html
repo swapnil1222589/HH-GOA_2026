@@ -764,7 +764,7 @@
         </section>
         <section id="step4" class="step-section" style="max-width: 1000px;">
             <div style="text-align: center; margin-bottom: 2rem;">
-                <h2 style="font-size: 2rem;">Looking Good! ✨</h2>
+                <h2 style="font-size: 2rem;">🚀 I'm excited to join HH Goa 2026!</h2>
                 <p class="text-secondary">Your HH Goa 2026 asset is ready.</p>
             </div>
 
@@ -773,18 +773,43 @@
             </div>
 
             <div class="action-bar">
-                <button class="btn btn-secondary" id="btnStartOver"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                    </svg> Start Over</button>
-                <button class="btn btn-primary" id="btnCopy"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                    </svg> Copy Image</button>
-                <button class="btn btn-primary" style="background: #1DA1F2;" id="btnShareX"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                    </svg> Share</button>
-                <button class="btn btn-gradient" id="btnDownload">Download PNG <span class="kbd" style="background: rgba(255,255,255,0.2); color:white; border:none; margin-left: 0.5rem;">Ctrl+S</span></button>
+              <button class="btn btn-secondary" id="btnStartOver">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+    Start Over
+</button>
+
+<button class="btn btn-primary" id="btnCopy">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+    </svg>
+    Copy Image
+</button>
+
+<button class="btn btn-primary" style="background:#1DA1F2;" id="btnShareX">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+    X
+</button>
+
+<button class="btn btn-primary" style="background:#0A66C2;" id="btnShareLinkedIn">
+    💼 LinkedIn
+</button>
+
+<button class="btn btn-primary" style="background:#E4405F;" id="btnShareInstagram">
+    📸 Instagram
+</button>
+
+<button class="btn btn-gradient" id="btnDownload">
+    Download PNG
+    <span class="kbd" style="background:rgba(255,255,255,.2);color:#fff;border:none;margin-left:.5rem;">
+        Ctrl+S
+    </span>
+</button>
             </div>
         </section>
 
@@ -988,6 +1013,55 @@
                     const text = encodeURIComponent("Just built my HH Goa 2026 Builder Card 🚀\n\nReady for Hacker House Goa!\n\n#FrameInGoa");
                     window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
                 });
+                // LinkedIn Share
+document.getElementById('btnShareLinkedIn').addEventListener('click', () => {
+
+    const text =
+`🚀 I'm excited to join HH Goa 2026!
+
+Just created my HH Goa 2026 Profile Frame.
+
+#FrameInGoa
+#HHGoa2026`;
+
+    navigator.clipboard.writeText(text);
+
+ const url = encodeURIComponent(window.location.href);
+
+window.open(
+    `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
+    "_blank"
+);
+
+    this.showToast("Caption copied! Paste it into LinkedIn.");
+
+});
+
+
+// Instagram Share
+document.getElementById('btnShareInstagram').addEventListener('click', () => {
+
+    this.downloadCanvas();
+
+    const caption =
+`🚀 I'm excited to join HH Goa 2026!
+
+Just created my HH Goa 2026 Profile Frame.
+
+#FrameInGoa
+#HHGoa2026`;
+
+    navigator.clipboard.writeText(caption);
+
+    window.open(
+        "https://www.instagram.com/",
+        "_blank"
+    );
+
+    this.showToast("Image downloaded & caption copied!");
+
+});
+                
                 document.addEventListener('keydown', (e) => {
                     if (e.ctrlKey && e.key === 's') {
                         e.preventDefault();
