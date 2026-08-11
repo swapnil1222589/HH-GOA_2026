@@ -264,14 +264,15 @@
         
         let state = {
             imageSrc: null,
-            name: 'SWAPNIL',
-            role: 'AI / ML BUILDER',
-            stack: 'AI • WEB • PYTHON',
-            building: 'PRODUCTS',
+            name: '',
+            role: '',
+            stack: '',
+            building: '',
             status: 'READY TO SHIP',
             previewUrl: '',
             get builderId() {
-                const init = (this.name || 'XX').replace(/[^a-zA-Z]/g, '').substring(0, 4).toUpperCase();
+                let init = (this.name || 'XX').replace(/[^a-zA-Z]/g, '').substring(0, 4).toUpperCase();
+                if (!init) init = 'XX';
                 return `HH26-${init}-${randomIdHash}`;
             }
         };
@@ -479,14 +480,14 @@
                 ctx.font = 'bold 16px "JetBrains Mono", monospace';
                 ctx.fillText('BUILDER PROFILE', rX, 300);
 
-                let dName = (state.name || 'BUILDER').toUpperCase();
+                let dName = (state.name || 'YOUR NAME').toUpperCase();
                 ctx.fillStyle = t.dark;
                 ctx.font = '900 70px "Inter", sans-serif';
                 // wrap/scale logic if name is too long
                 if(ctx.measureText(dName).width > 380) ctx.font = '900 50px "Inter", sans-serif';
                 ctx.fillText(dName, rX, 330);
 
-                let dRole = (state.role || 'BUILDER').toUpperCase();
+                let dRole = (state.role || 'PRIMARY ROLE').toUpperCase();
                 ctx.font = '800 24px "Inter", sans-serif';
                 ctx.fillText(dRole, rX, 420);
                 
@@ -543,8 +544,8 @@
                 const gap = 30;
                 
                 const mods = [
-                    { l: 'STACK', v: (state.stack || 'AI • WEB').toUpperCase() },
-                    { l: 'BUILDING', v: (state.building || 'PRODUCTS').toUpperCase() },
+                    { l: 'STACK', v: (state.stack || 'TECH STACK').toUpperCase() },
+                    { l: 'BUILDING', v: (state.building || 'PROJECTS').toUpperCase() },
                     { l: 'STATUS', v: (state.status || 'READY').toUpperCase() }
                 ];
 
@@ -684,11 +685,11 @@
             state.previewUrl = '';
             imageUpload.value = '';
             
-            // Reset fields to defaults
-            state.name = 'SWAPNIL';
-            state.role = 'AI / ML BUILDER';
-            state.stack = 'AI • WEB • PYTHON';
-            state.building = 'PRODUCTS';
+            // Reset fields to empty
+            state.name = '';
+            state.role = '';
+            state.stack = '';
+            state.building = '';
             state.status = 'READY TO SHIP';
             
             document.getElementById('name-input').value = state.name;
