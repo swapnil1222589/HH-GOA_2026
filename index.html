@@ -212,25 +212,8 @@
                 <!-- LIVE PREVIEW CONTAINER -->
                 <div class="glass-panel rounded-2xl flex flex-col overflow-hidden relative shadow-2xl flex-1 min-h-[550px] p-6 lg:p-8 flex items-center justify-center">
                     
-                    <!-- EMPTY STATE -->
-                    <div id="state-empty" class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center z-0">
-                        <div class="mb-6 relative">
-                            <!-- Technical SVG Deco -->
-                            <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="30" y="30" width="60" height="60" rx="10" stroke="#06D6A0" stroke-width="2" stroke-dasharray="4 4"/>
-                                <path d="M15 60H25M95 60H105M60 15V25M60 95V105" stroke="#FFD166" stroke-width="2"/>
-                                <circle cx="60" cy="60" r="15" fill="#1F3F30"/>
-                            </svg>
-                        </div>
-                        <h2 class="text-xl font-black text-[#F6F4E8] mb-2 uppercase tracking-wide">Create Your Builder Field Card</h2>
-                        <p class="text-[#F6F4E8]/50 text-sm font-mono max-w-xs mb-8">Your builder identity.<br>Your photo.<br>Your story.</p>
-                        <button type="button" onclick="document.getElementById('image-upload').click()" class="bg-white hover:bg-gray-200 text-black px-6 py-3 rounded font-bold font-mono text-sm transition-colors flex items-center gap-2">
-                            UPLOAD PHOTO
-                        </button>
-                    </div>
-
                     <!-- SUCCESS STATE (Generated Image) -->
-                    <div id="state-success" class="w-full max-w-[440px] relative z-10 hidden-force">
+                    <div id="state-success" class="w-full max-w-[440px] relative z-10">
                         <img id="preview-img" src="" alt="HH Goa Builder Field Card" class="w-full h-auto shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-[#F6F4E8]/5" />
                     </div>
                 </div>
@@ -307,7 +290,6 @@
         const buildingInput = document.getElementById('building-input');
         const statusInput = document.getElementById('status-input');
         
-        const stateEmpty = document.getElementById('state-empty');
         const stateSuccess = document.getElementById('state-success');
         const actionsPanel = document.getElementById('actions-panel');
         
@@ -394,8 +376,6 @@
 
         // --- Main Render Engine ---
         function renderCanvas() {
-            if (!state.imageSrc) return;
-
             const ctx = canvas.getContext('2d');
             const width = 1080;
             const height = 1350; // 4:5
@@ -616,31 +596,31 @@
                 previewImg.src = state.previewUrl;
             };
 
-            const img = new Image();
-            img.onload = () => drawCard(img);
-            img.src = state.imageSrc;
+            if (state.imageSrc) {
+                const img = new Image();
+                img.onload = () => drawCard(img);
+                img.src = state.imageSrc;
+            } else {
+                drawCard(null);
+            }
         }
 
         // --- UI Interactions ---
         function updateUI() {
             if (state.imageSrc) {
-                stateEmpty.classList.add('hidden-force');
-                stateSuccess.classList.remove('hidden-force');
                 actionsPanel.classList.remove('opacity-40', 'pointer-events-none');
                 
                 uiPhotoPreview.src = state.imageSrc;
                 uiPhotoPreview.classList.remove('hidden-force');
                 uploadPlaceholder.classList.add('hidden-force');
-                renderCanvas();
             } else {
-                stateEmpty.classList.remove('hidden-force');
-                stateSuccess.classList.add('hidden-force');
                 actionsPanel.classList.add('opacity-40', 'pointer-events-none');
                 
                 uiPhotoPreview.src = '';
                 uiPhotoPreview.classList.add('hidden-force');
                 uploadPlaceholder.classList.remove('hidden-force');
             }
+            renderCanvas();
         }
 
         function triggerToast(msg) {
